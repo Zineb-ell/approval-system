@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Approval & Decision System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080910;
+  --surface: #0d0f17;
+  --surface2: #12141f;
+  --border: rgba(255,255,255,0.06);
+  --text: #dde1ed;
+  --muted: #5c6278;
+  --ceo: #f97316;
+  --ceo-bg: rgba(249,115,22,0.07);
+  --layer1: #6366f1;
+  --layer2: #10b981;
+  --layer3a: #0ea5e9;
+  --layer3b: #e879f9;
+  --type-approval: #f43f5e;
+  --type-input: #f59e0b;
+  --type-action: #22d3ee;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 40px 20px 80px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.header .eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 3.5vw, 34px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+}
+.header p {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+
+/* DIAGRAM WRAPPER */
+.diagram {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* SECTION LABEL */
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+/* ARROW UP */
+.arrow-up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4px 0;
+}
+.arrow-shaft {
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(to top, rgba(255,255,255,0.18), rgba(255,255,255,0.04));
+}
+.arrow-tip {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 9px solid rgba(255,255,255,0.18);
+}
+
+/* CEO NODE */
+.ceo-node {
+  background: var(--ceo-bg);
+  border: 1.5px solid rgba(249,115,22,0.3);
+  border-radius: 18px;
+  padding: 22px 56px;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(249,115,22,0.12);
+  margin-bottom: 0;
+}
+.ceo-icon { font-size: 26px; margin-bottom: 6px; }
+.ceo-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--ceo); }
+.ceo-sub { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: 'DM Mono', monospace; }
+
+/* CARD */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 14px 14px 0 0;
+  background: var(--ac);
+  opacity: 0.6;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); }
+.card.open { border-color: var(--ac); box-shadow: 0 0 28px color-mix(in srgb, var(--ac) 18%, transparent); }
+.card-icon { font-size: 19px; margin-bottom: 7px; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--ac); margin-bottom: 4px; }
+.card-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
+.card-body { display: none; margin-top: 12px; flex-direction: column; gap: 5px; }
+.card.open .card-body { display: flex; }
+.card-item {
+  font-size: 11px; color: #bcc0d0;
+  display: flex; align-items: flex-start; gap: 6px; line-height: 1.45;
+}
+.card-item-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ac); flex-shrink: 0; margin-top: 4px; opacity: 0.7;
+}
+.expand-hint {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--muted);
+  text-align: right; margin-top: 10px; letter-spacing: 1px;
+}
+
+/* ROW */
+.row { display: flex; gap: 12px; width: 100%; justify-content: center; flex-wrap: wrap; }
+
+/* TYPE PILLS inside cards */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 10px; font-family: 'DM Mono', monospace;
+  margin-top: 8px; margin-right: 4px;
+}
+
+/* EXECUTION SECTION - two columns */
+.exec-split {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.exec-col {
+  flex: 1;
+  min-width: 280px;
+  max-width: 460px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  background: var(--surface2);
+}
+.exec-col-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px; font-weight: 700;
+  text-align: center; margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.dept-grid {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.dept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.dept-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: var(--ac);
+  opacity: 0.6;
+  border-radius: 10px 0 0 10px;
+}
+.dept-card:hover { transform: translateX(2px); border-color: var(--ac); }
+.dept-card.open { border-color: var(--ac); }
+.dept-title { font-size: 12px; font-weight: 600; color: var(--ac); margin-bottom: 4px; padding-left: 8px; }
+.dept-sub { font-size: 10px; color: var(--muted); padding-left: 8px; }
+.dept-types { display: none; margin-top: 10px; padding-left: 8px; flex-direction: column; gap: 4px; }
+.dept-card.open .dept-types { display: flex; }
+.type-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; color: #9ca3c0;
+  padding: 4px 8px; border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+}
+.type-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* SOURCE NODES */
+.source-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; width: 100%; }
+.source-node {
+  flex: 1; min-width: 200px; max-width: 300px;
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 20px; text-align: center;
+  background: var(--surface2);
+}
+.source-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; }
+.source-sub { font-size: 10px; color: var(--muted); margin-top: 3px; font-family: 'DM Mono', monospace; }
+
+/* FORMAT BAR */
+.format-bar {
+  margin-top: 48px;
+  width: 100%;
+  max-width: 960px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 26px;
+}
+.format-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.format-steps { display: flex; gap: 0; flex-wrap: nowrap; overflow-x: auto; }
+.format-step {
+  display: flex; flex-direction: column; align-items: center;
+  flex: 1; min-width: 100px; padding: 10px 8px;
+  position: relative;
+}
+.format-step:not(:last-child)::after {
+  content: '→';
+  position: absolute; right: -8px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted); font-size: 14px;
+}
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ceo);
+  margin-bottom: 6px;
+}
+.step-label { font-size: 10px; color: #8891b0; text-align: center; line-height: 1.4; }
+.format-note { margin-top: 14px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Monday.com · Centralized Architecture</div>
+  <h1>Approval & Decision System</h1>
+  <p>click any board to explore · flow reads bottom → top</p>
+</div>
+
+<div class="diagram">
+
+  <!-- ── CEO ── -->
+  <div class="ceo-node">
+    <div class="ceo-icon">👤</div>
+    <div class="ceo-title">CEO</div>
+    <div class="ceo-sub">Receives minimum noise · Decides fast</div>
+  </div>
+
+  <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
+
+  <!-- ── LAYER 1 — CEO Boards ── -->
+  <div class="section-label" style="background:rgba(99,102,241,0.08);color:#818cf8;border:1px solid rgba(99,102,241,0.18);">
+    CEO-Level Boards
+  </div>
+  <div class="row">
+
+    <!-- CEO Board -->
+    <div class="card" style="--ac:#6366f1; flex:1.3; min-width:220px; max-width:320px;" onclick="toggle(this)">
+      <div class="card-icon">👑</div>
+      <div class="card-title">CEO Board</div>
+      <div class="card-desc">Only what requires CEO attention — 3 types</div>
+      <div class="card-body">
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approvals</strong> — Strategic decisions requiring sign-off</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Inputs</strong> — CEO's opinion or clarification needed</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Actions</strong> — Tasks CEO must personally execute</div>
+      </div>
+      <div class="expand-hint">tap to expand</div>
+    </div>
+
+    <!-- CEO Shadow Log -->
+    <div class="card" style="--ac:#f59e0b; flex:1; min-width:180px; max-width:260px;" onclick="toggle(this)">
+      <div class="card-icon">📋</div>
+      <div class="card-title">CEO Shadow Log</div>
+      <div class="card-desc">Full traceability of all CEO instructions</div>
+      <div class="card-body">
+        <div class="card-item"><div class="card-item-dot"></div>Meeting preparation</div>
+        <div class="card-item"><div class="card-item-dot"></div>Every instruction given by CEO</div>
+        <div class="card-item"><div class="card-item-dot"></div>Follow-ups required</div>
+        <div class="card-item"><div class="card-item-dot"></div>Updates & outcomes tracked</div>
+      </div>
+      <div class="expand-hint">tap to expand</div>
+    </div>
+
+    <!-- Daily Brief -->
+    <div class="card" style="--ac:#4cc9f0; flex:1; min-width:180px; max-width:260px;" onclick="toggle(this)">
+      <div class="card-icon">🌅</div>
+      <div class="card-title">Daily Brief</div>
+      <div class="card-desc">Sent every morning — one document, zero noise</div>
+      <div class="card-body">
+        <div class="card-item"><div class="card-item-dot"></div>Meeting schedule for the day</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-approval)"></div>Pending <strong style="color:var(--type-approval)">Approvals</strong></div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-action)"></div>Pending <strong style="color:var(--type-action)">Actions</strong></div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-input)"></div>Pending <strong style="color:var(--type-input)">Inputs</strong></div>
+        <div class="card-item"><div class="card-item-dot"></div>Key information to know</div>
+      </div>
+      <div class="expand-hint">tap to expand</div>
+    </div>
+
+  </div>
+
+  <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
+
+  <!-- ── LAYER 2 — Filtering ── -->
+  <div class="section-label" style="background:rgba(16,185,129,0.08);color:#34d399;border:1px solid rgba(16,185,129,0.18);">
+    Filtering Layer — Head of Department
+  </div>
+  <div class="row">
+
+    <!-- Decision Board -->
+    <div class="card" style="--ac:#10b981; flex:1; min-width:200px; max-width:280px;" onclick="toggle(this)">
+      <div class="card-icon">⚖️</div>
+      <div class="card-title">Decision Board</div>
+      <div class="card-desc">Reviewed & filtered before reaching CEO</div>
+      <div class="card-body">
+        <div class="card-item"><div class="card-item-dot"></div>Head validates the request first</div>
+        <div class="card-item"><div class="card-item-dot"></div>Only truly necessary items escalate</div>
+        <div class="card-item"><div class="card-item-dot"></div>Priority ranked — Critical / High / Medium / Low</div>
+      </div>
+      <div class="expand-hint">tap to expand</div>
+    </div>
+
+    <!-- Signature Log -->
+    <div class="card" style="--ac:#6ee7b7; flex:1; min-width:200px; max-width:280px;" onclick="toggle(this)">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">Signature Log</div>
+      <div class="card-desc">CEO visibility on everything signed on his behalf</div>
+      <div class="card-body">
+        <div class="card-item"><div class="card-item-dot"></div>Document name & category</div>
+        <div class="card-item"><div class="card-item-dot"></div>Date signed</div>
+        <div class="card-item"><div class="card-item-dot"></div>Full audit trail — nothing hidden</div>
+      </div>
+      <div class="expand-hint">tap to expand</div>
+    </div>
+
+  </div>
+
+  <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
+
+  <!-- ── LAYER 3 — Execution ── -->
+  <div class="section-label" style="background:rgba(14,165,233,0.06);color:#7dd3fc;border:1px solid rgba(14,165,233,0.15);">
+    Team Execution Level — Organized by Business Unit & Department
+  </div>
+
+  <div class="exec-split">
+
+    <!-- BUSINESS UNIT A -->
+    <div class="exec-col" style="border-color:rgba(14,165,233,0.2);">
+      <div class="exec-col-title" style="color:var(--layer3a);">
+        🏢 Business Unit A
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Operations · Finance · HR · Systems</div>
+      </div>
+      <div class="dept-grid">
+
+        <div class="dept-card" style="--ac:#38bdf8;" onclick="toggleDept(this)">
+          <div class="dept-title">⚙️ Operations</div>
+          <div class="dept-sub">Daily execution tasks</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — operational sign-off requests</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — CEO guidance needed</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — tasks CEO must do</div>
+          </div>
+        </div>
+
+        <div class="dept-card" style="--ac:#60a5fa;" onclick="toggleDept(this)">
+          <div class="dept-title">💰 Finance</div>
+          <div class="dept-sub">Payments, procurement, accounting</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — payments above threshold</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — financial direction needed</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO sign-off tasks</div>
+          </div>
+        </div>
+
+        <div class="dept-card" style="--ac:#818cf8;" onclick="toggleDept(this)">
+          <div class="dept-title">👥 HR</div>
+          <div class="dept-sub">Hiring, visas, policies</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — HR decisions</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — policy clarifications</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO required actions</div>
+          </div>
+        </div>
+
+        <div class="dept-card" style="--ac:#67e8f9;" onclick="toggleDept(this)">
+          <div class="dept-title">🖥️ Systems</div>
+          <div class="dept-sub">Platforms, automations, tools</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — system changes</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — technical direction</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO tasks</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BUSINESS UNIT B -->
+    <div class="exec-col" style="border-color:rgba(232,121,249,0.2);">
+      <div class="exec-col-title" style="color:var(--layer3b);">
+        🎓 Business Unit B
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Marketing · Funnel · Community</div>
+      </div>
+      <div class="dept-grid">
+
+        <div class="dept-card" style="--ac:#e879f9;" onclick="toggleDept(this)">
+          <div class="dept-title">📣 Marketing</div>
+          <div class="dept-sub">Campaigns, content, social</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — campaign sign-offs</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — creative direction</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — filming, recording, publishing</div>
+          </div>
+        </div>
+
+        <div class="dept-card" style="--ac:#f0abfc;" onclick="toggleDept(this)">
+          <div class="dept-title">🔀 Funnel</div>
+          <div class="dept-sub">Email sequences, landing pages, ads</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — funnel & copy approval</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — messaging direction</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO review & launch tasks</div>
+          </div>
+        </div>
+
+        <div class="dept-card" style="--ac:#d8b4fe;" onclick="toggleDept(this)">
+          <div class="dept-title">🤝 Community</div>
+          <div class="dept-sub">Course, members, engagement</div>
+          <div class="dept-types">
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — content & course approvals</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — community decisions</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO appearances, live events</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- end diagram -->
+
+<!-- FORMAT BAR -->
+<div style="max-width:960px; margin:44px auto 0;">
+  <div class="format-bar">
+    <div class="format-title">Standard Request Format — Every single request, every department, same structure</div>
+    <div class="format-steps">
+      <div class="format-step">
+        <div class="step-num">01</div>
+        <div class="step-label">Action<br>Required</div>
+      </div>
+      <div class="format-step">
+        <div class="step-num">02</div>
+        <div class="step-label">Context</div>
+      </div>
+      <div class="format-step">
+        <div class="step-num">03</div>
+        <div class="step-label">Current<br>Situation</div>
+      </div>
+      <div class="format-step">
+        <div class="step-num">04</div>
+        <div class="step-label">Options</div>
+      </div>
+      <div class="format-step">
+        <div class="step-num">05</div>
+        <div class="step-label">Details<br>& Links</div>
+      </div>
+    </div>
+    <div class="format-note">
+      → Standardized so the CEO can read any request from any department and make a decision in under 60 seconds
+    </div>
+  </div>
+
+  <!-- TYPE LEGEND -->
+  <div style="margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:20px;padding:5px 14px;">
+      <div style="width:7px;height:7px;border-radius:50%;background:var(--type-approval)"></div>
+      <span style="font-size:11px;color:var(--type-approval);font-family:'DM Mono',monospace;">Approval — CEO must sign off</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:20px;padding:5px 14px;">
+      <div style="width:7px;height:7px;border-radius:50%;background:var(--type-input)"></div>
+      <span style="font-size:11px;color:var(--type-input);font-family:'DM Mono',monospace;">Input — CEO must give direction</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:20px;padding:5px 14px;">
+      <div style="width:7px;height:7px;border-radius:50%;background:var(--type-action)"></div>
+      <span style="font-size:11px;color:var(--type-action);font-family:'DM Mono',monospace;">Action — CEO must personally do</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+  const hint = el.querySelector('.expand-hint');
+  if (hint) hint.textContent = el.classList.contains('open') ? 'tap to close' : 'tap to expand';
+}
+function toggleDept(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
