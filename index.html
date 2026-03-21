@@ -333,17 +333,39 @@ body {
     <div class="card" style="--ac:#4cc9f0; flex:1; min-width:180px; max-width:260px;" onclick="toggle(this)">
       <div class="card-icon">🌅</div>
       <div class="card-title">Daily Brief</div>
-      <div class="card-desc">Sent every morning — one document, zero noise</div>
+      <div class="card-desc">Sent every morning at 9am — one document, zero noise</div>
       <div class="card-body">
         <div class="card-item"><div class="card-item-dot"></div>Meeting schedule for the day</div>
-        <div class="card-item"><div class="card-item-dot" style="background:var(--type-approval)"></div>Pending <strong style="color:var(--type-approval)">Approvals</strong></div>
-        <div class="card-item"><div class="card-item-dot" style="background:var(--type-action)"></div>Pending <strong style="color:var(--type-action)">Actions</strong></div>
-        <div class="card-item"><div class="card-item-dot" style="background:var(--type-input)"></div>Pending <strong style="color:var(--type-input)">Inputs</strong></div>
-        <div class="card-item"><div class="card-item-dot"></div>Key information to know</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-approval)"></div>Pending <strong style="color:var(--type-approval)">Approvals</strong> — sorted by priority: Critical · High · Medium · Low — from both businesses</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-action)"></div>Pending <strong style="color:var(--type-action)">Actions</strong> — tasks he personally needs to take</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-input)"></div>Pending <strong style="color:var(--type-input)">Inputs</strong> — decisions needing his direction</div>
+        <div class="card-item"><div class="card-item-dot"></div>Key information to be aware of</div>
+        <div class="card-item" style="margin-top:6px;font-style:italic;color:var(--muted)">His day is already organised before it starts</div>
       </div>
       <div class="expand-hint">tap to expand</div>
     </div>
 
+  </div>
+
+  <!-- ── EA OWNERSHIP BAND ── -->
+  <div style="width:100%;max-width:960px;margin:18px 0 0;">
+    <div style="background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.15);border-radius:14px;padding:14px 20px;">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:#818cf8;text-transform:uppercase;margin-bottom:10px;">EA Ownership</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
+          <span style="font-size:14px;">✅</span><span style="font-size:11px;color:#c4c8e8;">Approval routing & escalation</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
+          <span style="font-size:14px;">📅</span><span style="font-size:11px;color:#c4c8e8;">Calendar & scheduling (5 time zones)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
+          <span style="font-size:14px;">✈️</span><span style="font-size:11px;color:#c4c8e8;">Travel & logistics end-to-end</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
+          <span style="font-size:14px;">📬</span><span style="font-size:11px;color:#c4c8e8;">Inbox ownership — both businesses</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
@@ -394,8 +416,8 @@ body {
     <!-- BUSINESS UNIT A -->
     <div class="exec-col" style="border-color:rgba(14,165,233,0.2);">
       <div class="exec-col-title" style="color:var(--layer3a);">
-        🏢 Business Unit A
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Operations · Finance · HR · Systems</div>
+        🏢 Business Unit A — Short-Term Rental
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">100 luxury units · Dubai · Operations · Finance · HR · Systems</div>
       </div>
       <div class="dept-grid">
 
@@ -440,29 +462,55 @@ body {
         </div>
 
       </div>
-    </div>
 
-    <!-- BUSINESS UNIT B -->
+      <!-- External Ecosystem -->
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(14,165,233,0.15);">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:#7dd3fc;text-transform:uppercase;margin-bottom:8px;">External Ecosystem</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#9ca3c0;padding:5px 8px;background:rgba(14,165,233,0.04);border-radius:6px;">
+            <span>🏠</span><span><strong style="color:#7dd3fc;">Property Owners</strong> — clients whose units we manage</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#9ca3c0;padding:5px 8px;background:rgba(14,165,233,0.04);border-radius:6px;">
+            <span>📊</span><span><strong style="color:#7dd3fc;">Property Management System</strong> — reservations, listings & operations platform</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#9ca3c0;padding:5px 8px;background:rgba(14,165,233,0.04);border-radius:6px;">
+            <span>📈</span><span><strong style="color:#7dd3fc;">Revenue Optimization</strong> — dynamic pricing & occupancy strategy</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#9ca3c0;padding:5px 8px;background:rgba(14,165,233,0.04);border-radius:6px;">
+            <span>🔑</span><span><strong style="color:#7dd3fc;">Real Estate Agents</strong> — new unit acquisition & owner referrals</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
     <div class="exec-col" style="border-color:rgba(232,121,249,0.2);">
       <div class="exec-col-title" style="color:var(--layer3b);">
-        🎓 Business Unit B
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Marketing · Funnel · Community</div>
+        🎓 Business Unit B — Education Brand
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Marketing · Funnel & Copywriter · Learning & Development</div>
       </div>
       <div class="dept-grid">
 
         <div class="dept-card" style="--ac:#e879f9;" onclick="toggleDept(this)">
           <div class="dept-title">📣 Marketing</div>
-          <div class="dept-sub">Campaigns, content, social</div>
+          <div class="dept-sub">Campaigns, content, social media</div>
           <div class="dept-types">
             <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — campaign sign-offs</div>
             <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — creative direction</div>
-            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — filming, recording, publishing</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — filming, recording</div>
+            <div class="type-row" style="background:rgba(232,121,249,0.06);border:1px solid rgba(232,121,249,0.15);border-radius:6px;padding:5px 8px;margin-top:6px;">
+              <div class="type-dot" style="background:#f0abfc"></div>
+              <span style="color:#f0abfc;font-size:10px;">External team — paid advertising & campaigns</span>
+            </div>
+            <div class="type-row" style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:6px;padding:5px 8px;">
+              <div class="type-dot" style="background:#818cf8"></div>
+              <span style="color:#818cf8;font-size:10px;">EA — social media content · Shorts · Reels · Podcasts</span>
+            </div>
           </div>
         </div>
 
         <div class="dept-card" style="--ac:#f0abfc;" onclick="toggleDept(this)">
-          <div class="dept-title">🔀 Funnel</div>
-          <div class="dept-sub">Email sequences, landing pages, ads</div>
+          <div class="dept-title">🔀 Funnel & Copywriter</div>
+          <div class="dept-sub">Email sequences, landing pages, ads copy</div>
           <div class="dept-types">
             <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — funnel & copy approval</div>
             <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — messaging direction</div>
@@ -471,12 +519,12 @@ body {
         </div>
 
         <div class="dept-card" style="--ac:#d8b4fe;" onclick="toggleDept(this)">
-          <div class="dept-title">🤝 Community</div>
-          <div class="dept-sub">Course, members, engagement</div>
+          <div class="dept-title">📚 Learning & Development</div>
+          <div class="dept-sub">Manages courses, modules, and community (Skool)</div>
           <div class="dept-types">
-            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — content & course approvals</div>
-            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — community decisions</div>
-            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO appearances, live events</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — course & content approvals</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — community & curriculum decisions</div>
+            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — CEO appearances, live events, webinars</div>
           </div>
         </div>
 
