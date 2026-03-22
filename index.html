@@ -296,12 +296,14 @@ body {
 
   <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
 
-  <!-- ── DAILY BRIEF — First thing CEO sees ── -->
+  <!-- ── DAILY BRIEF + CEO OFFICE OPERATIONS ── -->
   <div class="section-label" style="background:rgba(76,201,240,0.08);color:#4cc9f0;border:1px solid rgba(76,201,240,0.2);">
-    First touch every morning
+    First point of entry — every morning
   </div>
-  <div class="row">
-    <div class="card open" style="--ac:#4cc9f0; width:100%; max-width:640px;" onclick="toggle(this)">
+  <div style="width:100%;max-width:960px;display:flex;gap:12px;flex-wrap:wrap;">
+
+    <!-- Daily Brief -->
+    <div class="card open" style="--ac:#4cc9f0; flex:1; min-width:240px;" onclick="toggle(this)">
       <div class="card-icon">🌅</div>
       <div class="card-title">Daily Brief — 9:00 AM</div>
       <div class="card-desc">One document. Every morning. His day is organised before it starts.</div>
@@ -314,6 +316,38 @@ body {
       </div>
       <div class="expand-hint">tap to close</div>
     </div>
+
+    <!-- CEO Office Operations -->
+    <div style="flex:1;min-width:240px;background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:#818cf8;opacity:0.6;border-radius:14px 14px 0 0;"></div>
+      <div style="font-size:19px;margin-bottom:7px;">🗂️</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#818cf8;margin-bottom:4px;">CEO Office Operations</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">Owned end-to-end by EA</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.18);border-radius:10px;padding:9px 14px;">
+          <span style="font-size:16px;">📅</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#c4c8e8;">Calendar Management</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px;">5 time zones · strict daily rules · meeting prep & follow-ups</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.18);border-radius:10px;padding:9px 14px;">
+          <span style="font-size:16px;">✈️</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#c4c8e8;">Travel & Logistics</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px;">Flights · hotels · visas · transport · itineraries</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.18);border-radius:10px;padding:9px 14px;">
+          <span style="font-size:16px;">📬</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#c4c8e8;">Inbox Ownership</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px;">Both businesses · Gmail filters · Inbox Zero daily</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
@@ -351,24 +385,6 @@ body {
       <div class="expand-hint">tap to expand</div>
     </div>
 
-  </div>
-
-  <!-- ── EA OWNERSHIP BAND ── -->
-  <div style="width:100%;max-width:960px;margin:18px 0 0;">
-    <div style="background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.15);border-radius:14px;padding:14px 20px;">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:#818cf8;text-transform:uppercase;margin-bottom:10px;">EA Ownership</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
-          <span style="font-size:14px;">📅</span><span style="font-size:11px;color:#c4c8e8;">Calendar & scheduling (5 time zones)</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
-          <span style="font-size:14px;">✈️</span><span style="font-size:11px;color:#c4c8e8;">Travel & logistics end-to-end</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
-          <span style="font-size:14px;">📬</span><span style="font-size:11px;color:#c4c8e8;">Inbox ownership — both businesses</span>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
