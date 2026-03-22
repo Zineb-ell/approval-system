@@ -296,6 +296,28 @@ body {
 
   <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
 
+  <!-- ── DAILY BRIEF — First thing CEO sees ── -->
+  <div class="section-label" style="background:rgba(76,201,240,0.08);color:#4cc9f0;border:1px solid rgba(76,201,240,0.2);">
+    First touch every morning
+  </div>
+  <div class="row">
+    <div class="card open" style="--ac:#4cc9f0; width:100%; max-width:640px;" onclick="toggle(this)">
+      <div class="card-icon">🌅</div>
+      <div class="card-title">Daily Brief — 9:00 AM</div>
+      <div class="card-desc">One document. Every morning. His day is organised before it starts.</div>
+      <div class="card-body">
+        <div class="card-item"><div class="card-item-dot"></div>Meeting schedule for the day</div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-approval)"></div>Pending <strong style="color:var(--type-approval)">Approvals</strong></div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-action)"></div>Pending <strong style="color:var(--type-action)">Actions</strong></div>
+        <div class="card-item"><div class="card-item-dot" style="background:var(--type-input)"></div>Pending <strong style="color:var(--type-input)">Inputs</strong></div>
+        <div class="card-item"><div class="card-item-dot"></div>FYI</div>
+      </div>
+      <div class="expand-hint">tap to close</div>
+    </div>
+  </div>
+
+  <div class="arrow-up"><div class="arrow-tip"></div><div class="arrow-shaft"></div></div>
+
   <!-- ── LAYER 1 — CEO Boards ── -->
   <div class="section-label" style="background:rgba(99,102,241,0.08);color:#818cf8;border:1px solid rgba(99,102,241,0.18);">
     CEO-Level Boards
@@ -329,22 +351,6 @@ body {
       <div class="expand-hint">tap to expand</div>
     </div>
 
-    <!-- Daily Brief -->
-    <div class="card" style="--ac:#4cc9f0; flex:1; min-width:180px; max-width:260px;" onclick="toggle(this)">
-      <div class="card-icon">🌅</div>
-      <div class="card-title">Daily Brief</div>
-      <div class="card-desc">Sent every morning at 9am — one document, zero noise</div>
-      <div class="card-body">
-        <div class="card-item"><div class="card-item-dot"></div>Meeting schedule for the day</div>
-        <div class="card-item"><div class="card-item-dot" style="background:var(--type-approval)"></div>Pending <strong style="color:var(--type-approval)">Approvals</strong> — sorted by priority: Critical · High · Medium · Low — from both businesses</div>
-        <div class="card-item"><div class="card-item-dot" style="background:var(--type-action)"></div>Pending <strong style="color:var(--type-action)">Actions</strong> — tasks he personally needs to take</div>
-        <div class="card-item"><div class="card-item-dot" style="background:var(--type-input)"></div>Pending <strong style="color:var(--type-input)">Inputs</strong> — decisions needing his direction</div>
-        <div class="card-item"><div class="card-item-dot"></div>Key information to be aware of</div>
-        <div class="card-item" style="margin-top:6px;font-style:italic;color:var(--muted)">His day is already organised before it starts</div>
-      </div>
-      <div class="expand-hint">tap to expand</div>
-    </div>
-
   </div>
 
   <!-- ── EA OWNERSHIP BAND ── -->
@@ -352,9 +358,6 @@ body {
     <div style="background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.15);border-radius:14px;padding:14px 20px;">
       <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:#818cf8;text-transform:uppercase;margin-bottom:10px;">EA Ownership</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
-          <span style="font-size:14px;">✅</span><span style="font-size:11px;color:#c4c8e8;">Approval routing & escalation</span>
-        </div>
         <div style="display:flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:6px 12px;">
           <span style="font-size:14px;">📅</span><span style="font-size:11px;color:#c4c8e8;">Calendar & scheduling (5 time zones)</span>
         </div>
@@ -486,27 +489,9 @@ body {
     <div class="exec-col" style="border-color:rgba(232,121,249,0.2);">
       <div class="exec-col-title" style="color:var(--layer3b);">
         🎓 Business Unit B — Education Brand
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Marketing · Funnel & Copywriter · Learning & Development</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);font-weight:400;margin-top:3px;">Funnel & Copywriter · Learning & Development</div>
       </div>
       <div class="dept-grid">
-
-        <div class="dept-card" style="--ac:#e879f9;" onclick="toggleDept(this)">
-          <div class="dept-title">📣 Marketing</div>
-          <div class="dept-sub">Campaigns, content, social media</div>
-          <div class="dept-types">
-            <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — campaign sign-offs</div>
-            <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — creative direction</div>
-            <div class="type-row"><div class="type-dot" style="background:var(--type-action)"></div><strong style="color:var(--type-action)">Action Board</strong> — filming, recording</div>
-            <div class="type-row" style="background:rgba(232,121,249,0.06);border:1px solid rgba(232,121,249,0.15);border-radius:6px;padding:5px 8px;margin-top:6px;">
-              <div class="type-dot" style="background:#f0abfc"></div>
-              <span style="color:#f0abfc;font-size:10px;">External team — paid advertising & campaigns</span>
-            </div>
-            <div class="type-row" style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:6px;padding:5px 8px;">
-              <div class="type-dot" style="background:#818cf8"></div>
-              <span style="color:#818cf8;font-size:10px;">EA — social media content · Shorts · Reels · Podcasts</span>
-            </div>
-          </div>
-        </div>
 
         <div class="dept-card" style="--ac:#f0abfc;" onclick="toggleDept(this)">
           <div class="dept-title">🔀 Funnel & Copywriter</div>
@@ -520,7 +505,7 @@ body {
 
         <div class="dept-card" style="--ac:#d8b4fe;" onclick="toggleDept(this)">
           <div class="dept-title">📚 Learning & Development</div>
-          <div class="dept-sub">Manages courses, modules, and community (Skool)</div>
+          <div class="dept-sub">Courses, modules & community (Skool)</div>
           <div class="dept-types">
             <div class="type-row"><div class="type-dot" style="background:var(--type-approval)"></div><strong style="color:var(--type-approval)">Approval Board</strong> — course & content approvals</div>
             <div class="type-row"><div class="type-dot" style="background:var(--type-input)"></div><strong style="color:var(--type-input)">Input Board</strong> — community & curriculum decisions</div>
@@ -529,6 +514,20 @@ body {
         </div>
 
       </div>
+
+      <!-- External Ecosystem BNB -->
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(232,121,249,0.15);">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:#d8b4fe;text-transform:uppercase;margin-bottom:8px;">External</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#9ca3c0;padding:5px 8px;background:rgba(232,121,249,0.04);border-radius:6px;">
+            <span>📣</span><span><strong style="color:#d8b4fe;">Marketing Agency</strong> — paid advertising & campaigns</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:10px;color:#9ca3c0;padding:5px 8px;background:rgba(99,102,241,0.04);border-radius:6px;">
+            <span>📱</span><span><strong style="color:#818cf8;">EA</strong> — social media content · Shorts · Reels · Podcasts</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
